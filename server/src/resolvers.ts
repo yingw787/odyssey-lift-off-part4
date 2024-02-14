@@ -26,4 +26,17 @@ export const resolvers: Resolvers = {
       return dataSources.trackAPI.getTrackModules(id);
     },
   },
+  Mutation: {
+    // Increments a track's numberOfViews property
+    incrementTrackViews: async (_, {id}, {dataSources}) => {
+      const track = await dataSources.trackAPI.incrementTrackViews(id);
+
+      return {
+        code: 200,
+        success: true,
+        message: `Successfully incremented number of views for track ${id}`,
+        track
+      }
+    }
+  }
 };
