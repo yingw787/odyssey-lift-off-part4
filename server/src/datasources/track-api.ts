@@ -1,5 +1,5 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
-import { TrackModel, AuthorModel, ModuleModel } from "../models"
+import { TrackModel, AuthorModel, ModuleModel } from "../models";
 
 export class TrackAPI extends RESTDataSource {
   // the Catstronauts catalog is hosted on this server
