@@ -1,9 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useMutation } from "@apollo/client";
 import { colors, mq } from "../styles";
 import { humanReadableTimeFromSeconds } from "../utils/helpers";
 import { Link } from "react-router-dom";
 import type { Track } from "../__generated__/graphql";
+import { gql } from "../__generated__";
+
+const INCREMENT_TRACK_VIEWS = gql(`
+mutation IncrementTrackViews($incrementTrackViewsId: ID!) {
+  incrementTrackViews(id: $incrementTrackViewsId) {
+    code,
+    success,
+    message,
+    track {
+      id,
+      numberOfViews,
+    }
+  }
+}
+`);
 
 /**
  * Track Card component renders basic info in a card format
@@ -11,6 +27,10 @@ import type { Track } from "../__generated__/graphql";
  */
 const TrackCard: React.FC<{ track: Omit<Track, "modules"> }> = ({ track }) => {
   const { title, thumbnail, author, length, modulesCount, id } = track;
+
+  const [incrementTrackViews] = useMutation(INCREMENT_TRACK_VIEWS, {
+    variables: { incrementTrackViewsId: id },
+  });
 
   return (
     <CardContainer to={`/track/${id}`}>

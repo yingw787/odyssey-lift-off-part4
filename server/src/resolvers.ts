@@ -44,7 +44,7 @@ export const resolvers: Resolvers = {
           success: false,
           message: err.extensions.response.body,
           track: null,
-        }
+        };
       }
     },
   },
